@@ -3,21 +3,23 @@ import { connect } from 'react-redux'
 import { randomGame, handleResultGame } from "./../redux/actions"
 class GamePlay extends Component {
 
-
-
-  handlePlayGame = () => {
+  handlePlayGame = async () => {
     this.props.playGame()
+  }
+  handleNotification = () => {
+    const { result } = this.props.game
+    return <h1 className=" text-warning">{result === "win" ? "Ironman win hehe" : result === "lose" ? "Ironman thua rồi nhá" : "Huề rồi"}</h1>
   }
 
   render() {
-    const { totalGamePlay, totalGameWin, result } = this.props.game
+    const { totalGamePlay, totalGameWin } = this.props.game
     return (
       <div>
-        <h1 className=" text-warning">{result === "win" ? "Thanos là ai? Làm sao có tuổi với anh!" : result === "lose" ? "Thanos là nhất!" : "Huề nha azai"}</h1>
-        <h1 className=" text-success">Số bàn thắng: {totalGameWin}</h1>
+        {this.handleNotification()}
+        <h1 className=" text-success" > Số bàn thắng: {totalGameWin}</h1>
         <h1 className=" text-success">Tổng số bàn chơi: {totalGamePlay}</h1>
         <button className="btn btn-success" onClick={this.handlePlayGame}>Play game</button>
-      </div>
+      </div >
     )
   }
 }
@@ -35,8 +37,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       const random = setInterval(() => {
         dispatch(randomGame())
         if (count > 15) {
-          clearInterval(random)
           dispatch(handleResultGame())
+          clearInterval(random)
         }
         count++
       }, 100)
