@@ -1,13 +1,92 @@
+@font-face {
+  font-family: fontGame;
+  src: url(./assets/fonts/Pony.ttf);
+}
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "fontGame" !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+/* Game */
+.game {
+  background-image: url(./assets/background/bgGame.png);
+  background-size: 100%;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-position-y: 80px;
+}
+.game .content {
+  margin-top: 200px;
+}
+/* player */
+.player {
+  position: relative;
+}
+.player .chosen {
+  position: absolute;
+  top: -155px;
+  left: 20px;
+  background-color: aliceblue;
+  padding: 20px 50px;
+  border: 4px solid rgb(29, 204, 175);
+  border-radius: 8px;
+}
+
+.player .chosen img {
+  width: 100px;
+  transform: rotate(120deg);
+}
+.player .avatar {
+  width: 220px;
+}
+.player .choose {
+  margin-left: -60px;
+}
+.player .choose button {
+  border: 4px solid #444;
+  margin: 0 10px;
+  outline: none;
+  border-radius: 8px;
+}
+.player .choose button.active {
+  border: 4px solid yellow;
+}
+.player .choose img {
+  display: block;
+  background-color: aliceblue;
+  padding: 10px;
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  outline: #333;
+  border-radius: 8px;
+}
+.speech-bubble {
+  position: relative;
+  background: solid rgb(29, 204, 175);
+  border-radius: 0.4em;
+}
+
+.speech-bubble:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border: 30px solid transparent;
+  border-top-color: rgb(29, 204, 175);
+  border-bottom: 0;
+  border-left: 0;
+  margin-bottom: -50px;
 }
