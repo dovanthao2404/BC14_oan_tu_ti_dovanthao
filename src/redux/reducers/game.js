@@ -9,13 +9,14 @@ const initialState = {
   totalGamePlay: 0,
   totalGameWin: 0,
   botChoose: { type: "keo", img: "./img/keo.png" },
-  result: ""
+  result: "start"
 }
 
-
+// Hàm xử lý kết qur người dùng có win không
 function isWin(playerChosen, botChosen) {
   if ((playerChosen === "bua" && botChosen === "keo")
-    || (playerChosen === "bao" && botChosen === "bua")) {
+    || (playerChosen === "bao" && botChosen === "bua")
+    || (playerChosen === "keo" && botChosen === "bao")) {
     return true;
   }
   return false;
@@ -25,6 +26,7 @@ export const gameReducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_CHOSEN:
       const temp = [...state.dataGame]
+
       temp.forEach((dataChilde) => {
         if (dataChilde.type === action.payload) {
           dataChilde.chosen = true
@@ -32,6 +34,7 @@ export const gameReducer = (state = initialState, action) => {
           dataChilde.chosen = false
         }
       })
+
       state.dataGame = temp;
       return { ...state }
 
@@ -41,7 +44,6 @@ export const gameReducer = (state = initialState, action) => {
       return { ...state }
 
     case HANDLE_RESULT_GAME:
-
       const index = state.dataGame.findIndex(choose => choose.chosen === true)
       const playerChosen = state.dataGame[index].type
       const botChosen = state.botChoose.type;
@@ -49,10 +51,12 @@ export const gameReducer = (state = initialState, action) => {
       if (playerChosen === botChosen) {
         state.result = ""
       } else if (playerChosen !== botChosen) {
-        state.result = isWin(playerChosen, botChosen) ? state.totalGameWin++ || "win" : "lose";
+        state.result = isWin(playerChosen, botChosen) ? "win" : "lose";
+        isWin(playerChosen, botChosen) && state.totalGameWin++;
       }
 
       state.totalGamePlay++;
+
       return { ...state }
     default:
       return { ...state };

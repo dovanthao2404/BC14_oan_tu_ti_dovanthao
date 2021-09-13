@@ -3,25 +3,27 @@ import { connect } from 'react-redux'
 import { updateChosen } from "./../redux/actions"
 class Player extends Component {
 
-  handleClickImg = (choose) => {
+  // xử lý update option được chọn
+  handleClickImgOption = (choose) => {
     if (choose.chosen !== true) {
       this.props.updateChoose(choose.type)
     }
   }
-
+  // Hiển thị búa, kéo bao cho người dùng chọn
   renderOption = () => {
     const dataGame = [...this.props.dataGame];
     return dataGame.map((choose, key) => {
       return <button
         className={choose.chosen ? "active" : ""}
         key={key}
-        onClick={() => this.handleClickImg(choose)}
+        onClick={() => this.handleClickImgOption(choose)}
       >
         <img src={choose.img} alt={choose.type} />
       </button>
     })
   }
 
+  // Hiển thị ảnh hiện tại người chơi chọn
   renderOptionCurrent = () => {
     const dataGame = [...this.props.dataGame];
     const chooseCurrent = dataGame.find((choose, key) => {

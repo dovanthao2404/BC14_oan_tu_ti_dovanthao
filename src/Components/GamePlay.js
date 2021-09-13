@@ -3,12 +3,19 @@ import { connect } from 'react-redux'
 import { randomGame, handleResultGame } from "./../redux/actions"
 class GamePlay extends Component {
 
+  // Xử lý khi click vào nut play game
   handlePlayGame = async () => {
     this.props.playGame()
   }
+
+  // Thông báo trò chơi
   handleNotification = () => {
     const { result } = this.props.game
-    return <h1 className=" text-warning">{result === "win" ? "Ironman win hehe" : result === "lose" ? "Ironman thua rồi nhá" : "Huề rồi"}</h1>
+    return <h1 className=" text-warning">
+      {result === "win" ? "Ironman win hehe" :
+        result === "lose" ? "Ironman thua rồi nhá" :
+          result === "start" ? "Bắt đầu chơi thôi nào" :
+            "Huề rồi"}</h1>
   }
 
   render() {
@@ -18,7 +25,7 @@ class GamePlay extends Component {
         {this.handleNotification()}
         <h1 className=" text-success" > Số bàn thắng: {totalGameWin}</h1>
         <h1 className=" text-success">Tổng số bàn chơi: {totalGamePlay}</h1>
-        <button className="btn btn-success" onClick={this.handlePlayGame}>Play game</button>
+        <button className="btn btn-success" onClick={this.handlePlayGame}>Chơi game</button>
       </div >
     )
   }
