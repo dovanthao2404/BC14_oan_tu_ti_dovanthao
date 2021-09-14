@@ -1,4 +1,4 @@
-import { UPDATE_CHOSEN, RANDOM_GAME, HANDLE_RESULT_GAME } from "../constants"
+import { UPDATE_CHOSEN, RANDOM_GAME, HANDLE_RESULT_GAME, PLAYING } from "../constants"
 
 const updateChosen = (typeChosen) => {
   return {
@@ -19,4 +19,11 @@ const handleResultGame = () => {
   }
 }
 
-export { updateChosen, randomGame, handleResultGame };
+const handleButtonPlaying = (playing) => {
+  return {
+    type: PLAYING,
+    payload: playing
+  }
+}
+
+export { updateChosen, randomGame, handleResultGame, handleButtonPlaying };

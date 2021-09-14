@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { randomGame, handleResultGame } from "./../redux/actions"
+import { randomGame, handleResultGame, handleButtonPlaying } from "./../redux/actions"
 class GamePlay extends Component {
 
   // Xử lý khi click vào nut play game
   handlePlayGame = async () => {
+    this.props.disabledButton()
     this.props.playGame()
   }
 
@@ -19,25 +20,25 @@ class GamePlay extends Component {
   }
 
   render() {
-    const { totalGamePlay, totalGameWin } = this.props.game
+    const { totalGamePlay, totalGameWin, playing } = this.props.game
     return (
       <div>
         {this.handleNotification()}
         <h1 className=" text-success" > Số bàn thắng: {totalGameWin}</h1>
         <h1 className=" text-success">Tổng số bàn chơi: {totalGamePlay}</h1>
-        <button className="btn btn-success" onClick={this.handlePlayGame}>Chơi game</button>
+        <button className="btn btn-success" onClick={this.handlePlayGame} disabled={!playing}>Chơi game</button>
       </div >
     )
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
     game: state.game
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     playGame: () => {
       let count = 0;
@@ -45,10 +46,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         dispatch(randomGame())
         if (count > 15) {
           dispatch(handleResultGame())
+          dispatch(handleButtonPlaying(true));
           clearInterval(random)
         }
         count++
       }, 100)
+    },
+    disabledButton: () => {
+      dispatch(handleButtonPlaying(false));
     }
   }
 }
