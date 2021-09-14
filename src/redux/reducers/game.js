@@ -12,7 +12,7 @@ const initialState = {
   totalGameWin: tongSoBanThang || 0,
   botChoose: { type: "keo", img: "./img/keo.png" },
   result: "start",
-  playing: false
+  playing: true
 }
 
 // Hàm xử lý kết qur người dùng có win không
